@@ -1,0 +1,8 @@
+// Define and immediately invoke the function
+(function() {
+  const message = "Hello from IIFE!";
+  console.log(message);
+})();
+
+// Trying to access 'message' here will result in an error
+// console.log(message); // Uncaught ReferenceError: message is not defined
