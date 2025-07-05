@@ -1,0 +1,49 @@
+// Simulate an API call that returns data after 2 seconds
+function fakeApiCall(url) {
+  return new Promise((resolve, reject) => {
+    console.log(`Calling API: ${url}`);
+    
+    setTimeout(() => {
+      if (url === "https://api.example.com/data") {
+        resolve({ data: [1, 2, 3, 4, 5] });
+      } else {
+        reject("404 Not Found");
+      }
+    }, 2000);
+  });
+}
+
+// Async function to fetch and process data
+async function fetchData() {
+  try {
+    console.log("Starting data fetch...");
+
+    // Await the fake API call
+    const response = await fakeApiCall("https://api.example.com/data");
+    
+    console.log("Data received:", response.data);
+
+    // Process data (for example, multiply each item by 2)
+    const processedData = response.data.map(num => num * 2);
+
+    console.log("Processed data:", processedData);
+
+    return processedData;
+
+  } catch (error) {
+    // Handle errors gracefully
+    console.error("Error fetching data:", error);
+    return null;
+  }
+}
+
+// Call the async function and handle its result
+fetchData().then(result => {
+  if (result) {
+    console.log("Final result:", result);
+  } else {
+    console.log("No result due to error.");
+  }
+});
+
+console.log("This runs before the async operation completes.");
